@@ -33,7 +33,7 @@ export const LoginPage = () => {
       })
  
       
-    }else if(status ==='Пользователь не найден'||status ==='Неверный пароль.'||status ==='Пароль или Имя не может быть пустыми' ||status ==='Ошибка при Авторизации'){
+    }else if(status ==='Пользователь не найден'||status ==='Неверный пароль.'||status ==='Пароль или имя не может быть пустыми' ||status ==='Ошибка при Авторизации'){
       toast.error(status,{
         position: "top-center",
         autoClose: 3000,

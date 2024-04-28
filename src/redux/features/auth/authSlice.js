@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk(
     // это функция, которая используется в библиотеке redux-toolkit для отклонения запроса асинхронного действия с предоставленным значением.
     if (!password || !username) {
       return rejectWithValue({
-        message: "Пароль или Имя не может быть пустыми "
+        message: "Пароль или имя не может быть пустыми "
       });
     }
 
@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     if (!password || !username) {
       return rejectWithValue({
-        message: "Пароль или Имя не может быть пустыми"
+        message: "Пароль или имя не может быть пустыми"
       });
     }
     try {

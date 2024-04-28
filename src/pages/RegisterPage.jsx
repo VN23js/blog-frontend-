@@ -31,7 +31,7 @@ useEffect(() => {
       progress: undefined,
     })
   
-  }else if(status ==='Username занят'||status ==='Введите пароль'||status ==='Ошибка при создании пользователя'||status ==='Пароль или Имя не может быть пустыми '){
+  }else if(status ==='Username занят'||status ==='Введите пароль'||status ==='Ошибка при создании пользователя'||status ==='Пароль или имя не может быть пустыми '){
     toast.error(status,{
       position: "top-center",
       autoClose: 3000,
