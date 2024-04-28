@@ -3,7 +3,7 @@ import { Navbar } from './Navbar'
 
 export const Layout = ({children}) => {
   return( <React.Fragment>
-    <div className="container mx-auto">
+    <div className="container p-3 mx-auto">
         <Navbar/>{children}
     </div>
   </React.Fragment>)
