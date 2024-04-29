@@ -106,7 +106,6 @@ if(isLoading===true) {
                 </Link>
             </div>
              
-            
         </form>
         
     )

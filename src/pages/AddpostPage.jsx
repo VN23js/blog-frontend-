@@ -3,6 +3,7 @@ import React, {useState,useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import { createPost } from "../redux/features/post/postSlice";
 import { toast } from 'react-toastify'
+import {useNavigate} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'//import свойства 
 import { clear} from '../redux/features/post/postSlice';
 export const AddPostPage=()=>{
@@ -10,6 +11,7 @@ export const AddPostPage=()=>{
     const[text,setText]=useState("")
     const[image,setImage]=useState("")
     const dispatch=useDispatch()
+    const navigate=useNavigate()
     const { status } = useSelector((state) => state.post)
     const submitHandler=()=>{
 
@@ -24,13 +26,20 @@ export const AddPostPage=()=>{
                     data.append('image', image);
                 }
                 dispatch(createPost(data));
-                setTitle('')
-                setText('')
-                setImage('')
+
+            
+                
+                
             } catch (error) {
                 // обработка ошибки
             }
         }
+    }
+    const clearFormHandler =()=>{
+    
+        setTitle('')
+        setText('')
+       
     }
     console.log(status)
     useEffect(() => {
@@ -43,8 +52,12 @@ export const AddPostPage=()=>{
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            
           })
         
+          setTimeout(function(){
+            navigate('/');
+            }, 3000);
         }else if(status ==='Ошибка'||status ==='Поля не могут быть пустыми'||status ==='Нет доступа.'||status ==='User is not an admin'){
             toast.error(status,{
               position: "top-center",
@@ -58,10 +71,10 @@ export const AddPostPage=()=>{
         
           }
         
-        if(status){
+          if(status){
             dispatch(clear())
-        }
-        
+            
+        } 
         }, [status]);
       
     const {loading} = useSelector((state)=>state.post)
@@ -85,7 +98,11 @@ export const AddPostPage=()=>{
             <input type="file" className="hidden" 
             onChange={e=>setImage(e.target.files[0])} name="image" />
          </label>
-         <div className="flex object-cover py-2  "></div>
+         <div className="flex object-cover py-2  ">
+            {image && 
+                <img src={URL.createObjectURL(image)} alt={image.name}/>
+            }
+         </div>
          <label className="text-xs text-white opacity-70" >
             Заголовок поста:
             <input type="text" 
@@ -105,7 +122,7 @@ export const AddPostPage=()=>{
          </label>
          <div className=" flex gap-8 items-centr justify-center mt-4">
          <button onClick={submitHandler} className=" flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4">Добавить </button>
-         <button className=" flex justify-center items-center bg-red-500 text-xs text-white rounded-sm py-2 px-4">Отменить </button>
+         <button onClick={clearFormHandler} className=" flex justify-center items-center bg-red-500 text-xs text-white rounded-sm py-2 px-4">Отменить </button>
          </div>
         </form>
     )
