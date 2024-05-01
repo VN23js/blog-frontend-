@@ -50,6 +50,9 @@ export const postSlice = createSlice({
 
         state.status = action.payload.message; // Получение сообщения из ответа сервера
         state.posts.push(action.payload);
+        //  if (state.posts.push(action.payload) === undefined) {
+        //    console.log("");
+        //  }
       })
       .addCase(createPost.rejected, (state) => {
         state.loading = false;

@@ -17,7 +17,7 @@ export const MainPage = () => {
 
 
     const LoadingSpinner = () => {
-      return <span > <div className="loading-spinner-container">Loading...</div></span>
+      return <span > <div className="loading-spinner-container"></div></span>
     }
 
     
@@ -27,7 +27,7 @@ export const MainPage = () => {
     }
 
   
-    if (!posts.length) {
+    if (!posts) {
       return (
           <div className='text-xl text-center text-white py-10'>
               Постов не существует.

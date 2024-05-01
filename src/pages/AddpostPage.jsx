@@ -79,7 +79,7 @@ export const AddPostPage=()=>{
       
     const {loading} = useSelector((state)=>state.post)
     const LoadingSpinner = () => {
-        return <span > <div className="loading-spinner-container">Loading...</div></span>
+        return <span > <div className="loading-spinner-container"></div></span>
       }
      console.log(loading)
       if(loading===true) {
