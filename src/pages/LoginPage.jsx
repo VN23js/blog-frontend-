@@ -3,9 +3,11 @@ import { Link,useNavigate, } from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
 import React, {useState,useEffect} from 'react'
 import { toast } from 'react-toastify'
-import {checkIsAuth, loginUser,} from "../redux/features/auth/authSlice"
-
-
+import {checkIsAuth, loginUser,} from "../redux/features/auth/authSlice";
+import {NextUIProvider} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
+import {Input} from "@nextui-org/react";
+import {Image} from "@nextui-org/react";
 export const LoginPage = () => {
   const {isLoading} = useSelector((state)=>state.auth)
   const [username,setUsername] =useState('')
@@ -68,6 +70,7 @@ if(isLoading===true) {
             className='mx-auto mt-30 xl:w-1/3   lg:w-1/2 p-10'
         >
             <h1 className='text-lg text-white text-center'>Авторизация</h1>
+            
             <label className='text-xs text-gray-400'>
                 Username:
                 <input
@@ -104,8 +107,9 @@ if(isLoading===true) {
                 >
                     Нет аккаунта ?
                 </Link>
+                
             </div>
-             
+     
         </form>
         
     )

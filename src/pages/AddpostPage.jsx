@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import {useNavigate} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'//import свойства 
 import { clear} from '../redux/features/post/postSlice';
+import {Textarea} from "@nextui-org/react";
 export const AddPostPage=()=>{
     const[title,setTitle]=useState("")
     const[text,setText]=useState("")
@@ -113,12 +114,14 @@ export const AddPostPage=()=>{
          
          <label className="text-xs text-white opacity-70" >
             Текст поста:
-            <textarea 
+         <Textarea
+             onChange={(e) => setText(e.target.value)}
              value={text}
-             onChange={e=>setText(e.target.value)}
+             isRequired
+          
+             labelPlacement="outside"
              placeholder="Текст поста"
-             name="title" 
-              className="w-full mx-auto py-2 px-2 text-gray-950 text-sm mt-2 flex  rounded resize-none h-40 placeholder:text-gray-700 text-center  justify-center  cursor-pointer" />
+             className="w-full cursor-pointer h-30" />
          </label>
          <div className=" flex gap-8 items-centr justify-center mt-4">
          <button onClick={submitHandler} className=" flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4">Добавить </button>

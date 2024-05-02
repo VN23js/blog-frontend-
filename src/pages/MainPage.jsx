@@ -5,6 +5,7 @@ import { PopularPosts } from '../components/PopularPosts'
 import { PostItem } from '../components/PostItem'
 import { getAllPosts } from '../redux/features/post/postSlice'
 
+
 export const MainPage = () => {
     const dispatch = useDispatch()
     const { posts, popularPost } = useSelector((state) => state.post)
@@ -28,6 +29,7 @@ export const MainPage = () => {
 
   
     if (!posts) {
+
       return (
           <div className='text-xl text-center text-white py-10'>
               Постов не существует.
@@ -37,23 +39,20 @@ export const MainPage = () => {
     return (
       
         <div className='max-w-[900px] mx-auto py-10'>
-            <div className='flex justify-between gap-8'>
-                <div className='flex flex-col gap-10 basis-4/5'>
+          
+            <div className='flex justify-center gap-8'>
+                <div className=' post   flex flex-col gap-10  basis-8/12    sm:basis-7/12' >
                     {posts?.map((post, idx) => (
                         <PostItem key={idx} post={post} />
                     ))}
                 </div>
-                <div className='basis-1/5'>
-                    <div className='text-xs uppercase text-white'>
-                        Популярное:
-                    </div>
-
-                    {popularPost?.map((post, idx) => (
-                        <PopularPosts key={idx} post={post} />
-                    ))}
-                </div>
+             
             </div>
+          
+       
         </div>
+
+        
     )
     
 }

@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'//import свойства
 import {useDispatch, useSelector} from "react-redux"
 import { toast } from 'react-toastify'
 import {registerUser,checkIsAuth, logout} from "../redux/features/auth/authSlice"
+import {Button} from "@nextui-org/react";
 export const RegisterPage = () => {
 
 const [username,setUsername] =useState('')
