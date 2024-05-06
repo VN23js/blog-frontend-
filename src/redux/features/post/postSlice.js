@@ -3,6 +3,15 @@ import axios from "../../../utils/axios";
 
 const initialState = {
   posts: [],
+
+  comments: [],
+  createdAt: null,
+  imgUrl: null,
+  title: null,
+  text: null,
+  views: null,
+  username: null,
+
   popularPosts: [],
   loading: false,
   error: null,
@@ -31,6 +40,18 @@ export const getAllPosts = createAsyncThunk("post/getAllPosts", async () => {
   }
 });
 
+export const getByIdPost = createAsyncThunk(
+  "post/getIdPost",
+  async (params) => {
+    try {
+      const { data } = await axios.get(`/posts/${params}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState: initialState,
@@ -39,6 +60,7 @@ export const postSlice = createSlice({
       state.status = null;
     }
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(createPost.pending, (state) => {
@@ -70,6 +92,26 @@ export const postSlice = createSlice({
         state.popularPosts = action.payload.popularPosts;
       })
       .addCase(getAllPosts.rejected, (state) => {
+        state.loading = false;
+        state.status = null;
+      })
+      //Get post byID
+      .addCase(getByIdPost.pending, (state) => {
+        state.loading = true;
+        state.status = null;
+      })
+      .addCase(getByIdPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = action.payload.message; // Получение сообщения из ответа сервера
+        state.username = action.payload.username;
+        state.comments = action.payload.comments;
+        state.imgUrl = action.payload.imgUrl;
+        state.title = action.payload.title;
+        state.text = action.payload.text;
+        state.views = action.payload.views;
+        state.createdAt = action.payload.createdAt;
+      })
+      .addCase(getByIdPost.rejected, (state) => {
         state.loading = false;
         state.status = null;
       });

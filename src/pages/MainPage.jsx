@@ -41,7 +41,7 @@ export const MainPage = () => {
         <div className='max-w-[900px] mx-auto py-10'>
           
             <div className='flex justify-center gap-8'>
-                <div className=' post   flex flex-col gap-10  basis-8/12    sm:basis-7/12' >
+                <div className=' post   flex flex-col gap-10  basis-8/12    sm:basis-3/6' >
                     {posts?.map((post, idx) => (
                         <PostItem key={idx} post={post} />
                     ))}

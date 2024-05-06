@@ -7,6 +7,8 @@ import {useNavigate} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'//import свойства 
 import { clear} from '../redux/features/post/postSlice';
 import {Textarea} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
+import { FaPenToSquare } from "react-icons/fa6";
 export const AddPostPage=()=>{
     const[title,setTitle]=useState("")
     const[text,setText]=useState("")
@@ -17,7 +19,7 @@ export const AddPostPage=()=>{
     const submitHandler=()=>{
 
         if (!title || !text) {
-            toast.error("Заполните все поля");
+            toast.error("Заполните все поля!");
         } else {
             try {
                 const data = new FormData();
@@ -92,7 +94,7 @@ export const AddPostPage=()=>{
         <form 
         className=" mx-auto mt-30 xl:w-1/3   lg:w-1/2 p-10"  
         onSubmit={e=> e.preventDefault()}
-        
+        style={{ maxWidth: '450px' }}
         >
          <label className="text-gray-300 py-2 bg-gray-600 text-xs mt-2 flex items-center  text-center  justify-center border-2 border-dotted cursor-pointer">
             Прикрепить изображение:
@@ -124,8 +126,8 @@ export const AddPostPage=()=>{
              className="w-full cursor-pointer h-30" />
          </label>
          <div className=" flex gap-8 items-centr justify-center mt-4">
-         <button onClick={submitHandler} className=" flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm py-2 px-4">Добавить </button>
-         <button onClick={clearFormHandler} className=" flex justify-center items-center bg-red-500 text-xs text-white rounded-sm py-2 px-4">Отменить </button>
+         <Button  color="success"  onClick={submitHandler} className=" flex justify-center items-center  text-black  py-2 px-4">Добавить<FaPenToSquare/></Button>
+         <Button  onClick={clearFormHandler} className=" flex justify-center items-center bg-red-500  text-white  py-2 px-4">Отменить </Button>
          </div>
         </form>
     )

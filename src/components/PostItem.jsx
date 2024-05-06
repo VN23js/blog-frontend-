@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import {User} from "@nextui-org/user";
 import {Card, CardHeader, CardBody, CardFooter, Image, Button} from "@nextui-org/react";
 import {NextUIProvider} from "@nextui-org/react";
+import { Link } from 'react-router-dom';
 export const PostItem = ({ post }) => {
   if (!post) {
       return (
@@ -14,7 +15,8 @@ export const PostItem = ({ post }) => {
   }
 
   return (
-    <div className='flex flex-col bg-gray-800 rounded-md shadow-md p-1 space-y-4'>
+    <Link to={`/${post._id}`}>
+    <div className=' box  flex flex-col bg-gray-800 rounded-md shadow-md  space-y-4' >
         <div className='relative flex justify-center'>
             {post.imgUrl && (
               
@@ -33,15 +35,13 @@ export const PostItem = ({ post }) => {
             </Card>
             
 
-           
             )}
         </div>
         <div className='p-5'>
         <div className='text-base name2  text-gray-400'>@{post.username}
-        
         </div>
         <div className='text-sm text-white'>{post.title}</div>
-        <p className='text-gray-300 text-sm'>{post.text}</p>
+        <p className='text-gray-300 text-xs'>{post.text}</p>
         <div className='flex justify-between items-center'>
             <div className='text-xs text-gray-400'>
                 <Moment date={post.createdAt} format='D MMM YYYY' />
@@ -56,6 +56,7 @@ export const PostItem = ({ post }) => {
         </div>
     
     </div>
+    </Link>
   );
 }
 

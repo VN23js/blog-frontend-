@@ -8,6 +8,7 @@ import {NextUIProvider} from "@nextui-org/react";
 import {Button} from "@nextui-org/react";
 import {Input} from "@nextui-org/react";
 import {Image} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure, Checkbox,  } from "@nextui-org/react";
 export const LoginPage = () => {
   const {isLoading} = useSelector((state)=>state.auth)
   const [username,setUsername] =useState('')
@@ -17,7 +18,7 @@ export const LoginPage = () => {
   const navigate = useNavigate()
   const  isAuth =useSelector(checkIsAuth)
   const LoadingSpinner = () => {
-    return <span > <div className="loading-spinner-container">Loading...</div></span>
+    return <span > <div className="loading-spinner-container"></div></span>
 }
 
   console.log(status)
@@ -35,7 +36,7 @@ export const LoginPage = () => {
       })
  
       
-    }else if(status ==='Пользователь не найден'||status ==='Неверный пароль.'||status ==='Пароль или имя не может быть пустыми' ||status ==='Ошибка при Авторизации'){
+    }else if(status ==='Пользователь не найден'||status ==='Неверный пароль.'||status ==='Заполните все поля!' ||status ==='Ошибка при Авторизации'){
       toast.error(status,{
         position: "top-center",
         autoClose: 3000,
@@ -62,55 +63,71 @@ export const LoginPage = () => {
 if(isLoading===true) {
   return  <LoadingSpinner />
 }
+const variants = [ "default"];
   return (
-    
-    <form
-    
-            onSubmit={(e) => e.preventDefault()}
-            className='mx-auto mt-30 xl:w-1/3   lg:w-1/2 p-10'
-        >
-            <h1 className='text-lg text-white text-center'>Авторизация</h1>
-            
-            <label className='text-xs text-gray-400'>
-                Username:
-                <input
-                    type='text'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder='Username'
-                    className='mt-1 text-black w-full rounded-lg bg-gray-400 border py-4 px-8 outline-none placeholder:text-gray-700' />
-                
-            </label>
+   
+     <form 
+  onSubmit={e => e.preventDefault()}
+  className='mx-auto mt-30 xl:w-1/2 lg:w-1/2 p-2'
+  style={{ maxWidth: '490px' }} // Set max-width to 400px
+> <div className='bg-content '>
+  <h1 className='text-2xl pb-6 text-white text-center'>Авторизация</h1>
+  <label className='text-xs text-gray-400'>
+  {variants.map((variant) => (
+    <Input
+    isRequired
+    key={variant}
+    variant={variant}
+     label="Name"
+      type='text'
 
-            <label className='text-xs text-gray-400'>
-                Password:
-                <input
-                    type='password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Password'
-                    className='mt-1 text-black w-full rounded-lg bg-gray-400 border py-4 px-8 outline-none placeholder:text-gray-700' />
-            </label>
+      value={username} 
+      onChange={e => setUsername(e.target.value)}
+      placeholder='Введите свое имя' 
+      className='   text-black w-full   p-2 outline-none ' />
+      
+    ))}  
+  </label>
 
-            <div className='flex gap-8 justify-center mt-4'>
-                <button
+  <label className='text-xs text-gray-400'>
+  {variants.map((variant) => (
+    <Input
+    key={variant}
+    variant={variant}
+    label="Password"
+      type='Password' 
+      isRequired
+      value={password}
+      onChange={e => setPassword(e.target.value)}
+      placeholder='Введите свой пароль' 
+      className='  text-black w-full   p-2 outline-none ' 
+      
+     />
+    ))}  
+  </label>
+
+            <div className='flex gap-7  justify-center mt-4'>
+            <Button 
+                  radius="md"
                     type='submit'
                     onClick={handleSubmit}
-                    className='flex justify-center items-center text-xs bg-gray-600 text-white rounded-sm py-2 px-4'
+                    className='flex justify-center items-center  bg-gray-600 text-white  py-2 px-4'
                 >
                     Войти
-                </button>
+                </Button>
+
+               
                 <Link
                     to='/register'
                     
-                    className='flex justify-center items-center text-xs text-white'
+                    className='flex justify-center items-center  text-white'
                 >
                     Нет аккаунта ?
                 </Link>
-                
+               
             </div>
-     
+            </div>
         </form>
-        
+       
     )
 }
