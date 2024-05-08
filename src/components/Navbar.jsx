@@ -11,7 +11,8 @@ import { BiLogoMagento } from "react-icons/bi";
 export const Navbar1 = () => {
  
     const {user} = useSelector((state)=>state.auth)
-    console.log(user)
+    const {_id} = useSelector ((state)=>state.auth)
+    console.log('Имя',user,'ID',_id)
     const isAuth =useSelector(checkIsAuth)
 
 const dispatch = useDispatch()

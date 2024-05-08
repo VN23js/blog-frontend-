@@ -3,6 +3,7 @@ import axios from "../../../utils/axios";
 
 const initialState = {
   user: null,
+  _id: null,
   token: null,
   isLoading: false,
   status: null,
@@ -75,6 +76,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.status = null;
+      state._id = null;
     }
   },
   extraReducers: (builder) => {
@@ -90,6 +92,7 @@ export const authSlice = createSlice({
         state.status = action.payload.message;
         state.user = action.payload.username;
         state.token = action.payload.token;
+        state._id = action.payload._id;
       })
 
       .addCase(registerUser.rejected, (state, action) => {
@@ -106,6 +109,7 @@ export const authSlice = createSlice({
         state.status = action.payload.message;
         state.user = action.payload.username;
         state.token = action.payload.token;
+        state._id = action.payload._id;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = action.payload.message;
@@ -121,6 +125,7 @@ export const authSlice = createSlice({
         state.status = null;
         state.user = action.payload?.username;
         state.token = action.payload?.token;
+        state._id = action.payload._id;
       })
       .addCase(getMe.rejected, (state, action) => {
         state.status = action.payload.message;

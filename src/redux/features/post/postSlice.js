@@ -3,15 +3,16 @@ import axios from "../../../utils/axios";
 
 const initialState = {
   posts: [],
-
+  postId: null,
   comments: [],
   createdAt: null,
   imgUrl: null,
   title: null,
   text: null,
   views: null,
+  author: null,
   username: null,
-
+  _id: [],
   popularPosts: [],
   loading: false,
   error: null,
@@ -51,6 +52,15 @@ export const getByIdPost = createAsyncThunk(
     }
   }
 );
+export const deleteByIdPost = createAsyncThunk(
+  "post/deleteByIdPost",
+  async (id) => {
+    try {
+      const { data } = await axios.delete(`/posts/${id}`, id);
+      return data;
+    } catch (error) {}
+  }
+);
 
 export const postSlice = createSlice({
   name: "post",
@@ -69,12 +79,14 @@ export const postSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.loading = false;
-
-        state.status = action.payload.message; // Получение сообщения из ответа сервера
-        state.posts.push(action.payload);
-        //  if (state.posts.push(action.payload) === undefined) {
-        //    console.log("");
-        //  }
+        state.status = action.payload.message;
+        state.posts.push(
+          action.payload.newPostWithImage || action.payload.newPostWithoutImage
+        );
+        const postId =
+          action.payload.newPostWithImage?._id ||
+          action.payload.newPostWithoutImage?._id;
+        state.postId = postId;
       })
       .addCase(createPost.rejected, (state) => {
         state.loading = false;
@@ -89,7 +101,14 @@ export const postSlice = createSlice({
         state.loading = false;
         state.status = action.payload.message; // Получение сообщения из ответа сервера
         state.posts = action.payload.posts;
+
         state.popularPosts = action.payload.popularPosts;
+        const postPopular = action.payload.popularPosts;
+        state.popularPosts = postPopular;
+        action.postPopular = state.popularPosts;
+        console.log(postPopular, "postPopular");
+
+        console.log((state.popularPosts = action.payload.popularPosts));
       })
       .addCase(getAllPosts.rejected, (state) => {
         state.loading = false;
@@ -110,12 +129,31 @@ export const postSlice = createSlice({
         state.text = action.payload.text;
         state.views = action.payload.views;
         state.createdAt = action.payload.createdAt;
+        state.author = action.payload.author;
       })
       .addCase(getByIdPost.rejected, (state) => {
+        state.loading = false;
+        state.status = null;
+      })
+      //Delete byIDPost
+      .addCase(deleteByIdPost.pending, (state) => {
+        state.loading = true;
+        state.status = null;
+      })
+      .addCase(deleteByIdPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = action.payload.message; // Получение сообщения из ответа сервера
+        state.posts = action.posts.filter(
+          (post) => post._id !== action.payload._id
+        );
+      })
+      .addCase(deleteByIdPost.rejected, (state) => {
         state.loading = false;
         state.status = null;
       });
   }
 });
+
+export const selectPostId = (state) => state.post.postId;
 export const { clear } = postSlice.actions;
 export default postSlice.reducer;

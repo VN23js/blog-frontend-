@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { toast } from 'react-toastify'
 import {registerUser,checkIsAuth, logout} from "../redux/features/auth/authSlice"
 
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, } from "@nextui-org/react";
+import {Button,  Input, } from "@nextui-org/react";
 export const RegisterPage = () => {
 
 const [username,setUsername] =useState('')
@@ -20,7 +20,7 @@ const LoadingSpinner = () => {
 
 const  isAuth =useSelector(checkIsAuth)
 console.log(status)
-console.log(isLoading)
+console.log(isLoading, 'Загрузка и проверка регистрации')
 useEffect(() => {
   if(status ==='Пользователь успешно создан') {
     toast.success(status,{

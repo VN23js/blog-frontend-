@@ -6,12 +6,15 @@ import { PostItem } from '../components/PostItem'
 import { getAllPosts } from '../redux/features/post/postSlice'
 
 
+
 export const MainPage = () => {
     const dispatch = useDispatch()
-    const { posts, popularPost } = useSelector((state) => state.post)
-    const {loading} = useSelector(state => state.post)
-    console.log(popularPost)
-
+    const { posts, } = useSelector((state) => state.post)
+    const { popularPosts } = useSelector((state) => state.post)//забыл дописать s +_- popularPosts !=== popularPost
+    const {loading} = useSelector(state => state.post) 
+    
+    console.log(popularPosts)
+   
     useEffect(() => {
         dispatch(getAllPosts())
     }, [dispatch])
@@ -22,13 +25,14 @@ export const MainPage = () => {
     }
 
     
-   console.log(loading)
+   console.log(loading,'Загрузка главной')
     if(loading===true) {
       return  <LoadingSpinner />
     }
 
-  
-    if (!posts) {
+
+    if (!posts.length) {
+
 
       return (
           <div className='text-xl text-center text-white py-10'>

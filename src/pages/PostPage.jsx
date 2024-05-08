@@ -6,12 +6,15 @@ import { AiFillEye, AiOutlineMessage } from 'react-icons/ai';
 import Moment from 'react-moment';
 import  axios from '../utils/axios'
 import {useParams } from 'react-router-dom'
+
 import { getByIdPost } from '../redux/features/post/postSlice'
 export const PostPage = () => {
 
-  const { id } = useParams()
+  const { idrt } = useParams()// <Route path=":idrt" element={<PostPage />} />
   const dispatch = useDispatch()
-  const {post} = useSelector((state) => state.post)
+  const {posts} = useSelector((state) => state.post)
+  const {author} = useSelector((state) => state.post)
+  const {_id} = useSelector((state) => state.auth)
   const {username} = useSelector((state) => state.post)
   const {imgUrl} = useSelector((state) => state.post)
   const {title} = useSelector((state) => state.post)
@@ -22,11 +25,10 @@ export const PostPage = () => {
   const {loading} = useSelector(state => state.post)
   const {status} = useSelector(state => state.post)
   
-
+console.log('Пользователь авторизованный:',_id,"id автора:",author)
   useEffect(() => {
-      dispatch(getByIdPost(id))
-  }, [dispatch,id])
-
+      dispatch(getByIdPost(idrt))
+  }, [dispatch,idrt])
 
 const LoadingSpinner = () => {
   return <span > <div className="loading-spinner-container"></div></span>
@@ -49,14 +51,13 @@ if(status==='Post not found'||status==='Что-то не так!') {
   return <Error404 />
 }
   return (
-   
-    <div>
+    <div className='   flex flex-col  rounded-md   space-y-4' >
 
       
 
      
-      <div className=' flex justify-around gap-10 py-8 '>
-        <div className='  w-2/6'>
+      <div className=' media-800 flex justify-around     gap-10 py-8 '>
+        <div className=' basis w-2/6'>
           <div className='flex flex-col basis1/4 flex-grow'>
           <div className='relative flex justify-center'>
             {imgUrl && (
@@ -67,9 +68,10 @@ if(status==='Post not found'||status==='Что-то не так!') {
               
                 <Image
                   isZoomed
+                 
                   isBlurred
                   alt="NextUI Album Cover"
-                  className="object-cover  rounded-xl"
+                  className="object-cover  "
                   src={`https://lwr1vjxm-3003.euw.devtunnels.ms/${imgUrl}`} 
                   width={800}
                 />
@@ -89,12 +91,18 @@ if(status==='Post not found'||status==='Что-то не так!') {
             <div className='text-xs text-gray-400'>
                 <Moment date={createdAt} format='D MMM YYYY' />
             </div>
-            <button className='flex items-center gap-1 text-xs text-gray-400'>
+
+           {_id=== author && (  <button className='flex items-center gap-1 text-xs text-gray-400'>
+              <div>
+            
+              </div>
+             
                 <AiOutlineMessage className='inline' /> {comments?.length || 0}
                 <div className='bottom-2 right-2 bg-gray-900 bg-opacity-50 w-fit p-1 rounded-md text-white text-xs'>
                     <AiFillEye className='inline' /> {views}
                 </div>
             </button>
+          )}
         </div>
         </div>
         </div>

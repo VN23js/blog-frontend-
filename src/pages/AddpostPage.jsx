@@ -9,13 +9,21 @@ import { clear} from '../redux/features/post/postSlice';
 import {Textarea} from "@nextui-org/react";
 import {Button} from "@nextui-org/react";
 import { FaPenToSquare } from "react-icons/fa6";
+import {useParams } from 'react-router-dom'
+import { selectPostId } from '../redux/features/post/postSlice'
+
 export const AddPostPage=()=>{
+    
     const[title,setTitle]=useState("")
     const[text,setText]=useState("")
     const[image,setImage]=useState("")
     const dispatch=useDispatch()
     const navigate=useNavigate()
     const { status } = useSelector((state) => state.post)
+   
+    const postId = useSelector((state) => state.post.postId);
+
+     console.log("Post _id from Redux store:", postId);
     const submitHandler=()=>{
 
         if (!title || !text) {
@@ -30,8 +38,6 @@ export const AddPostPage=()=>{
                 }
                 dispatch(createPost(data));
 
-            
-                
                 
             } catch (error) {
                 // обработка ошибки
@@ -44,7 +50,8 @@ export const AddPostPage=()=>{
         setText('')
        
     }
-    console.log(status)
+
+    
     useEffect(() => {
         if(status==='Пост успешно создан') {
           toast.success(status,{
@@ -57,9 +64,8 @@ export const AddPostPage=()=>{
             progress: undefined,
             
           })
-        
           setTimeout(function(){
-            navigate('/');
+           navigate(`/${postId}`)
             }, 3000);
         }else if(status ==='Ошибка'||status ==='Поля не могут быть пустыми'||status ==='Нет доступа.'||status ==='User is not an admin'){
             toast.error(status,{
@@ -78,8 +84,9 @@ export const AddPostPage=()=>{
             dispatch(clear())
             
         } 
-        }, [status]);
       
+        }, [status, ]);
+        
     const {loading} = useSelector((state)=>state.post)
     const LoadingSpinner = () => {
         return <span > <div className="loading-spinner-container"></div></span>

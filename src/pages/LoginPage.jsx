@@ -7,8 +7,8 @@ import {checkIsAuth, loginUser,} from "../redux/features/auth/authSlice";
 import {NextUIProvider} from "@nextui-org/react";
 import {Button} from "@nextui-org/react";
 import {Input} from "@nextui-org/react";
-import {Image} from "@nextui-org/react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure, Checkbox,  } from "@nextui-org/react";
+
+
 export const LoginPage = () => {
   const {isLoading} = useSelector((state)=>state.auth)
   const [username,setUsername] =useState('')
@@ -22,7 +22,7 @@ export const LoginPage = () => {
 }
 
   console.log(status)
- console.log(isLoading)
+ console.log(isLoading, 'Загрузка и проверка авторизации')
   useEffect(()=>{
     if(status ==='Авторизация успешна') {
       toast.success(status,{
