@@ -143,7 +143,7 @@ export const postSlice = createSlice({
       .addCase(deleteByIdPost.fulfilled, (state, action) => {
         state.loading = false;
         state.status = action.payload.message; // Получение сообщения из ответа сервера
-        state.posts = action.posts.filter(
+        state.posts = state.posts.filter(
           (post) => post._id !== action.payload._id
         );
       })

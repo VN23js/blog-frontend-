@@ -5,7 +5,10 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@mui/material": "^5.15.16",
+    "@fontsource/roboto": "^5.0.13",
+    "@mui/icons-material": "^5.15.17",
+    "@mui/material": "^5.15.17",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@nextui-org/react": "^2.3.6",
     "@reduxjs/toolkit": "^2.2.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -28,6 +31,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "sort-by": "^1.2.0",
+    "styled-components": "^6.1.10",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

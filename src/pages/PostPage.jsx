@@ -2,12 +2,18 @@ import React, { useCallback,useEffect, useState } from 'react'
 import {Card, CardHeader, CardBody, CardFooter, Image, Button} from "@nextui-org/react";
 import {NextUIProvider} from "@nextui-org/react";
 import { useDispatch, useSelector } from 'react-redux'
-import { AiFillEye, AiOutlineMessage } from 'react-icons/ai';
+import { AiFillEye, AiOutlineMessage, AiTwotoneEdit, AiFillDelete } from 'react-icons/ai';
+import CreateIcon from '@mui/icons-material/Create';
 import Moment from 'react-moment';
 import  axios from '../utils/axios'
 import {useParams } from 'react-router-dom'
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import { getByIdPost } from '../redux/features/post/postSlice'
+import {deleteByIdPost} from '../redux/features/post/postSlice'
+import { toast } from 'react-toastify'
+import {useNavigate} from 'react-router-dom'
 export const PostPage = () => {
 
   const { idrt } = useParams()// <Route path=":idrt" element={<PostPage />} />
@@ -24,7 +30,25 @@ export const PostPage = () => {
   const {views} = useSelector((state) => state.post)
   const {loading} = useSelector(state => state.post)
   const {status} = useSelector(state => state.post)
-  
+  const navigate=useNavigate()
+  const  removePostHandler =()=>{
+    try {
+      dispatch(deleteByIdPost(idrt))
+     
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if(status==='Пост успешно удален'){
+      toast.success('Пост успешно удален')
+      navigate('/')
+    }else if(status==='Такого поста не существует'||status==='Что-то не так!'){
+      toast.error('Что-то не так!')
+    }
+  })
+
 console.log('Пользователь авторизованный:',_id,"id автора:",author)
   useEffect(() => {
       dispatch(getByIdPost(idrt))
@@ -43,7 +67,7 @@ const Error404 = () => {
   );
 };
 
-console.log(loading)
+console.log(loading,'Загрузка поста по id')
 if(loading===true) {
   return  <LoadingSpinner />
 }
@@ -83,7 +107,23 @@ if(status==='Post not found'||status==='Что-то не так!') {
         </div>
           </div>
           <div className=' pt-5'>
-        <div className='text-base name2  text-gray-400'>@{username}
+        <div className='text-base name2 flex  items-center justify-between text-gray-400'>@{username}
+        {_id=== author && (    <div className=' w-100'>
+        <div className='flex items-center gap-1 text-xs text-gray-400'>
+                <Tooltip   title="Edit">
+                <CreateIcon    className='inline size-5 cursor-pointer' /> 
+                 </Tooltip>
+                <div className='bottom-2 right-2  w-fit p-1 rounded-md text-white text-xs'>
+                     <Tooltip title="Delete">
+                   
+                      <DeleteIcon 
+                      onClick={removePostHandler}
+                      className=  ' cursor-pointer size-5 text-red'  />
+                     
+                       </Tooltip>
+                </div>
+            </div>
+            </div>)}
         </div>
         <div className='text-sm text-white'>{title}</div>
         <p className='text-gray-300 text-xs'>{text}</p>
@@ -92,7 +132,7 @@ if(status==='Post not found'||status==='Что-то не так!') {
                 <Moment date={createdAt} format='D MMM YYYY' />
             </div>
 
-           {_id=== author && (  <button className='flex items-center gap-1 text-xs text-gray-400'>
+            <button className='flex items-center gap-1 text-xs text-gray-400'>
               <div>
             
               </div>
@@ -102,8 +142,10 @@ if(status==='Post not found'||status==='Что-то не так!') {
                     <AiFillEye className='inline' /> {views}
                 </div>
             </button>
-          )}
+   
+          
         </div>
+      
         </div>
         </div>
          <div className=' text-white -1/3'>COMENTS</div>

@@ -45,15 +45,23 @@ export const MainPage = () => {
         <div className='max-w-[900px] mx-auto py-10'>
           
             <div className='flex justify-center gap-8'>
-                <div className=' post   flex flex-col gap-10  basis-8/12    sm:basis-3/6' >
+                <div className=' post   flex flex-col gap-10  basis-8/12    lg:basis-3/6' >
                     {posts?.map((post, idx) => (
                         <PostItem key={idx} post={post} />
                     ))}
                 </div>
              
             </div>
-          
-       
+              {/*}  <div className='basis-1/5'>
+                    <div className='text-xs uppercase text-white'>
+                        Популярное:
+                    </div>
+
+                    {popularPosts?.map((post, idx) => (
+                        <PopularPosts key={idx} post={post} />
+                    ))}
+                </div>
+                */}
         </div>
 
         

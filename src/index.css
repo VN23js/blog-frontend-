@@ -407,3 +407,9 @@ img {
     width: 90%;
   }
 }
+
+@media (min-width: 641px) and (max-width: 1024) {
+  .post {
+    flex-basis: 50%;
+  }
+}
