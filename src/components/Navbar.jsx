@@ -8,7 +8,7 @@ import {Button} from "@nextui-org/react";
 import { MdLogout } from "react-icons/md";
 import {Image} from "@nextui-org/react";
 import { BiLogoMagento } from "react-icons/bi";
-export const Navbar1 = () => {
+export const Navbar = () => {
  
     const {user} = useSelector((state)=>state.auth)
     const {_id} = useSelector ((state)=>state.auth)

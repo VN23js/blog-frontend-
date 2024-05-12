@@ -6,7 +6,7 @@ import { AiFillEye, AiOutlineMessage, AiTwotoneEdit, AiFillDelete } from 'react-
 import CreateIcon from '@mui/icons-material/Create';
 import Moment from 'react-moment';
 import  axios from '../utils/axios'
-import {useParams } from 'react-router-dom'
+import {Link, useParams } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -66,7 +66,11 @@ const Error404 = () => {
     </div>
   );
 };
+useEffect(() => {
+  console.log(idrt,'idrt')
+}, [idrt])
 
+console.log(idrt,'idrt')
 console.log(loading,'Загрузка поста по id')
 if(loading===true) {
   return  <LoadingSpinner />
@@ -88,8 +92,7 @@ if(status==='Post not found'||status==='Что-то не так!') {
               
                 
               <Card className="">
-             
-              
+  
                 <Image
                   isZoomed
                  
@@ -110,9 +113,13 @@ if(status==='Post not found'||status==='Что-то не так!') {
         <div className='text-base name2 flex  items-center justify-between text-gray-400'>@{username}
         {_id=== author && (    <div className=' w-100'>
         <div className='flex items-center gap-1 text-xs text-gray-400'>
+         
                 <Tooltip   title="Edit">
+                <Link to={`/${idrt}/edit`}>
                 <CreateIcon    className='inline size-5 cursor-pointer' /> 
+                </Link>
                  </Tooltip>
+               
                 <div className='bottom-2 right-2  w-fit p-1 rounded-md text-white text-xs'>
                      <Tooltip title="Delete">
                    

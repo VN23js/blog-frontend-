@@ -125,7 +125,7 @@ export const authSlice = createSlice({
         state.status = null;
         state.user = action.payload?.username;
         state.token = action.payload?.token;
-        state._id = action.payload._id;
+        state._id = action.payload?._id;
       })
       .addCase(getMe.rejected, (state, action) => {
         state.status = action.payload.message;

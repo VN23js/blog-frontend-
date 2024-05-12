@@ -24,7 +24,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="posts" element={<PostsPage />} />
         <Route path=":idrt" element={<PostPage />} />
-        <Route path=":id/edit" element={<EditPostPage />} />
+        <Route path=":idrt/edit" element={<EditPostPage />} />
         <Route path="new" element={<AddPostPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />

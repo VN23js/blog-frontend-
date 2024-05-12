@@ -16,7 +16,8 @@ const initialState = {
   popularPosts: [],
   loading: false,
   error: null,
-  status: null
+  status: null,
+  message: null
 };
 
 export const createPost = createAsyncThunk(
@@ -57,6 +58,16 @@ export const deleteByIdPost = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(`/posts/${id}`, id);
+      return data;
+    } catch (error) {}
+  }
+);
+
+export const updatePost = createAsyncThunk(
+  "post/update",
+  async (updatePost) => {
+    try {
+      const { data } = await axios.put(`/posts/${updatePost.id}`, updatePost);
       return data;
     } catch (error) {}
   }
@@ -148,6 +159,19 @@ export const postSlice = createSlice({
         );
       })
       .addCase(deleteByIdPost.rejected, (state) => {
+        state.loading = false;
+        state.status = null;
+      })
+      //Edit byIDPost
+      .addCase(updatePost.pending, (state) => {
+        state.loading = true;
+        state.status = null;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.status = action.payload.message; // Получение сообщения из ответа сервера
+      })
+      .addCase(updatePost.rejected, (state) => {
         state.loading = false;
         state.status = null;
       });
