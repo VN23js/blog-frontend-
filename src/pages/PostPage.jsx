@@ -14,6 +14,10 @@ import { getByIdPost } from '../redux/features/post/postSlice'
 import {deleteByIdPost} from '../redux/features/post/postSlice'
 import { toast } from 'react-toastify'
 import {useNavigate} from 'react-router-dom'
+import { FaPenToSquare } from "react-icons/fa6";
+import { createComment } from '../redux/features/post/postSlice';
+import { getComment } from '../redux/features/post/postSlice'
+import {CommentItem} from '../components/commetItem'
 export const PostPage = () => {
 
   const { idrt } = useParams()// <Route path=":idrt" element={<PostPage />} />
@@ -26,10 +30,14 @@ export const PostPage = () => {
   const {title} = useSelector((state) => state.post)
   const {text} = useSelector((state) => state.post)
   const {comments} = useSelector((state) => state.post)
+  const {loading2} = useSelector(state => state.post)
+
   const {createdAt} = useSelector((state) => state.post)
   const {views} = useSelector((state) => state.post)
   const {loading} = useSelector(state => state.post)
   const {status} = useSelector(state => state.post)
+
+const [comment, SetComment] = useState('')
   const navigate=useNavigate()
   const  removePostHandler =()=>{
     try {
@@ -38,6 +46,17 @@ export const PostPage = () => {
     } catch (error) {
       console.error(error)
     }
+  }
+  const hundleSubmit = ()=>{
+try {
+  const postId = idrt
+  dispatch(createComment({postId, comment}))
+  SetComment('')
+  
+} catch (error) {
+  
+}
+
   }
 
   useEffect(() => {
@@ -70,11 +89,24 @@ useEffect(() => {
   console.log(idrt,'idrt')
 }, [idrt])
 
+const fetchComments  = useCallback (async  () =>{
+  try {
+    dispatch(getComment(idrt))
+  } catch (error) {
+    console.error(error)
+  }
+},[idrt,dispatch])
+
+useEffect(()=>{
+  fetchComments()
+},[fetchComments])
+
 console.log(idrt,'idrt')
 console.log(loading,'Загрузка поста по id')
 if(loading===true) {
   return  <LoadingSpinner />
 }
+
 if(status==='Post not found'||status==='Что-то не так!') {
   return <Error404 />
 }
@@ -155,7 +187,21 @@ if(status==='Post not found'||status==='Что-то не так!') {
       
         </div>
         </div>
-         <div className=' text-white -1/3'>COMENTS</div>
+         <div className='min-height text-white w-full lg:w-1/3 p-5 bg-gray-700 flex flex-col gap-2 rounded-xl'>
+          <form  className='flex gap-2' onSubmit={(e)=>e.preventDefault()}>
+            <input
+            type= "text"
+            value={comment}
+            onChange={(e)=> SetComment(e.target.value)}
+            placeholder='Comment'
+            className='w-full bg-gray-400 text-black text-xs p-2 rounded-md outline-none placeholder:text-gray-700'
+            >
+            </input><Button onClick={hundleSubmit} color="success"   className=" flex justify-center items-center texT text-black  py-2 px-4">Добавить</Button>
+            </form>
+            {comments?.map((cmt) => (
+                        <CommentItem key={cmt._id} cmt={cmt} />
+                    ))}
+            </div>
 
     </div>
 

@@ -41,12 +41,12 @@ export const PostItem = ({ post }) => {
         <div className='text-base name2  text-gray-400'>@{post.username}
         </div>
         <div className='text-sm text-white'>{post.title}</div>
-        <p className='text-gray-300 text-xs'>{post.text}</p>
+        <p className='text-gray-300 text-xs  line-clamp-[7]'>{post.text}</p>
         <div className='flex justify-between items-center'>
             <div className='text-xs text-gray-400'>
                 <Moment date={post.createdAt} format='D MMM YYYY' />
             </div>
-            <button className='flex items-center gap-1 text-xs text-gray-400'>
+            <button className='flex items-center gap-1 text-xs pt-1 text-gray-400'>
                 <AiOutlineMessage className='inline' /> {post.comments?.length || 0}
                 <div className='bottom-2 right-2 bg-gray-900 bg-opacity-50 w-fit p-1 rounded-md text-white text-xs'>
                     <AiFillEye className='inline' /> {post.views}

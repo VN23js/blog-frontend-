@@ -392,14 +392,17 @@ img {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1025px) {
   .media-800 {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+  .min-height {
+    min-height: 600px;
+  }
   .basis {
-    width: 50%;
+    width: 82%;
   }
 }
 @media only screen and (max-width: 600px) {

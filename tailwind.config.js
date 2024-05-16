@@ -8,7 +8,11 @@ module.exports = {
   ],
 
   theme: {
-    extend: {}
+    extend: {
+      lineClamp: {
+        7: "7"
+      }
+    }
   },
   darkMode: "class",
   plugins: [nextui()]

@@ -31,7 +31,7 @@ export const MainPage = () => {
     }
 
 
-    if (!posts.length) {
+    if(!posts || !posts.length){
 
 
       return (

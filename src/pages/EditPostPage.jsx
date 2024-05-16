@@ -50,6 +50,8 @@ export const EditPostPage = () => {
           navigate(`/${idrt}`)
           }, 2000);
       
+      }else if(status==="Вы не являетесь автором этого поста"){
+        toast.error(status)
       }
     },[status,dispatch,idrt,navigate,posts.author])
     
@@ -151,7 +153,7 @@ export const EditPostPage = () => {
          className="w-full cursor-pointer h-30" />
      </label>
      <div className=" flex gap-8 items-centr justify-center mt-4">
-     <Button  color="success"  onClick={submitHandler} className=" flex justify-center items-center  text-black  py-2 px-4">Добавить<FaPenToSquare/></Button>
+     <Button  color="success"  onClick={submitHandler} className=" flex justify-center items-center  text-black  py-2 px-4">Обновить<FaPenToSquare/></Button>
      <Button  onClick={clearFormHandler} className=" flex justify-center items-center bg-red-500  text-white  py-2 px-4">Отменить </Button>
      </div>
     </form>

@@ -17,7 +17,8 @@ const initialState = {
   loading: false,
   error: null,
   status: null,
-  message: null
+  message: null,
+  loading2: false
 };
 
 export const createPost = createAsyncThunk(
@@ -73,6 +74,32 @@ export const updatePost = createAsyncThunk(
   }
 );
 
+export const createComment = createAsyncThunk(
+  "comment/createComment",
+  async ({ postId, comment }) => {
+    try {
+      const { data } = await axios.post(`comments/${postId}`, {
+        postId,
+        comment
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const getComment = createAsyncThunk(
+  "comment/getComment",
+  async (postId) => {
+    try {
+      const { data } = await axios.get(`posts/comments/${postId}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const postSlice = createSlice({
   name: "post",
   initialState: initialState,
@@ -174,6 +201,37 @@ export const postSlice = createSlice({
       .addCase(updatePost.rejected, (state) => {
         state.loading = false;
         state.status = null;
+      })
+      /////comments
+      .addCase(createComment.pending, (state) => {
+        state.loading2 = true;
+        state.status = null;
+      })
+
+      .addCase(createComment.fulfilled, (state, action) => {
+        state.loading2 = false;
+        state.status = action.payload.message;
+        state.comments.push(action.payload);
+      })
+
+      .addCase(createComment.rejected, (state) => {
+        state.loading2 = false;
+        state.status = null;
+      })
+      //Get comments
+      .addCase(getComment.pending, (state) => {
+        state.loading2 = true;
+        state.status = null;
+      })
+
+      .addCase(getComment.fulfilled, (state, action) => {
+        state.loading2 = false;
+        state.status = action.payload.message;
+        state.comments = action.payload;
+      })
+
+      .addCase(getComment.rejected, (state) => {
+        state.loading2 = false;
       });
   }
 });
