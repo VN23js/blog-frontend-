@@ -161,7 +161,7 @@ export const postSlice = createSlice({
         state.loading = false;
         state.status = action.payload.message; // Получение сообщения из ответа сервера
         state.username = action.payload.username;
-        state.comments = action.payload.comments;
+        //    state.comments = action.payload.comments;//////////////////////////////// dont use here
         state.imgUrl = action.payload.imgUrl;
         state.title = action.payload.title;
         state.text = action.payload.text;
@@ -228,6 +228,7 @@ export const postSlice = createSlice({
         state.loading2 = false;
         state.status = action.payload.message;
         state.comments = action.payload;
+        console.log("Comments in Redux state:", state.comments);
       })
 
       .addCase(getComment.rejected, (state) => {

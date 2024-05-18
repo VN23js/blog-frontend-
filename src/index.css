@@ -416,3 +416,12 @@ img {
     flex-basis: 50%;
   }
 }
+.comment-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap; /* ensures that text breaks and wraps correctly */
+  text-overflow: ellipsis;
+  white-space: normal;
+}

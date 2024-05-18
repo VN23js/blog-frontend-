@@ -18,6 +18,7 @@ import { FaPenToSquare } from "react-icons/fa6";
 import { createComment } from '../redux/features/post/postSlice';
 import { getComment } from '../redux/features/post/postSlice'
 import {CommentItem} from '../components/commetItem'
+import {CommentSkeletons} from '../components/Skeleton'
 export const PostPage = () => {
 
   const { idrt } = useParams()// <Route path=":idrt" element={<PostPage />} />
@@ -29,9 +30,9 @@ export const PostPage = () => {
   const {imgUrl} = useSelector((state) => state.post)
   const {title} = useSelector((state) => state.post)
   const {text} = useSelector((state) => state.post)
-  const {comments} = useSelector((state) => state.post)
+  const comments = useSelector((state) => state.post.comments);
   const {loading2} = useSelector(state => state.post)
-
+  const [loadingComments, setLoadingComments] = useState(true);
   const {createdAt} = useSelector((state) => state.post)
   const {views} = useSelector((state) => state.post)
   const {loading} = useSelector(state => state.post)
@@ -48,7 +49,12 @@ const [comment, SetComment] = useState('')
     }
   }
   const hundleSubmit = ()=>{
+    if (!comment.trim()) {
+      toast.error('Комментарий не может быть пустым');
+      return;
+    }
 try {
+  
   const postId = idrt
   dispatch(createComment({postId, comment}))
   SetComment('')
@@ -89,17 +95,10 @@ useEffect(() => {
   console.log(idrt,'idrt')
 }, [idrt])
 
-const fetchComments  = useCallback (async  () =>{
-  try {
-    dispatch(getComment(idrt))
-  } catch (error) {
-    console.error(error)
-  }
-},[idrt,dispatch])
+ useEffect(() => {
+  dispatch(getComment(idrt)).then(() => setLoadingComments(false));
+  }, [dispatch, idrt]);
 
-useEffect(()=>{
-  fetchComments()
-},[fetchComments])
 
 console.log(idrt,'idrt')
 console.log(loading,'Загрузка поста по id')
@@ -198,9 +197,15 @@ if(status==='Post not found'||status==='Что-то не так!') {
             >
             </input><Button onClick={hundleSubmit} color="success"   className=" flex justify-center items-center texT text-black  py-2 px-4">Добавить</Button>
             </form>
-            {comments?.map((cmt) => (
-                        <CommentItem key={cmt._id} cmt={cmt} />
-                    ))}
+            {loadingComments  ? (
+            <div>
+              <CommentSkeletons />
+              <CommentSkeletons />
+              <CommentSkeletons />
+            </div>
+          ) : (
+            comments?.map((cmt) => <CommentItem key={cmt._id} cmt={cmt} />)
+          )}
             </div>
 
     </div>
