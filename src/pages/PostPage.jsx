@@ -62,7 +62,6 @@ try {
 } catch (error) {
   
 }
-
   }
 
   useEffect(() => {
@@ -111,10 +110,6 @@ if(status==='Post not found'||status==='Что-то не так!') {
 }
   return (
     <div className='   flex flex-col  rounded-md   space-y-4' >
-
-      
-
-     
       <div className=' media-800 flex justify-around     gap-10 py-8 '>
         <div className=' basis w-2/6'>
           <div className='flex flex-col basis1/4 flex-grow'>
