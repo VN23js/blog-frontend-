@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://blog-server-c0klih0gq-vn23js-projects.vercel.app/api",
+  baseURL: "https://blog-frontend-83lj8ppj6-vn23js-projects.vercel.app/api",
   validateStatus: () => true
 });
 
