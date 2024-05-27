@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://lwr1vjxm-3003.euw.devtunnels.ms/api",
+  baseURL: "https://blog-server-navy-six.vercel.app/api",
   validateStatus: () => true
 });
 
