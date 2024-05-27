@@ -29,7 +29,7 @@ export const PostItem = ({ post }) => {
                   alt="NextUI Album Cover"
                   className="object-cover  rounded-xl"
                   src={`https://lwr1vjxm-3003.euw.devtunnels.ms/${post.imgUrl}`} 
-                  width={800}
+                  width="100%"
                 />
             
             </Card>
