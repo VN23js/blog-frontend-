@@ -125,7 +125,7 @@ if(status==='Post not found'||status==='Что-то не так!') {
                   isBlurred
                   alt="NextUI Album Cover"
                   className="object-cover  "
-                  src={`https://lwr1vjxm-3003.euw.devtunnels.ms/${imgUrl}`} 
+                  src={`https://blog-server-c0klih0gq-vn23js-projects.vercel.app/${imgUrl}`} 
                   width={800}
                 />
             
