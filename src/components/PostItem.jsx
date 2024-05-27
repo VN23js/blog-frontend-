@@ -28,7 +28,7 @@ export const PostItem = ({ post }) => {
                   isBlurred
                   alt="NextUI Album Cover"
                   className="object-cover  rounded-xl"
-                  src={`${process.env.REACT_APP_API_URL}/${post.imgUrl}`}
+                  src={`https://lwr1vjxm-3003.euw.devtunnels.ms/${imgUrl}`} 
                   width="100%"
                 />
             

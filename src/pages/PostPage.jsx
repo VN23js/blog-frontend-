@@ -125,7 +125,7 @@ if(status==='Post not found'||status==='Что-то не так!') {
                   isBlurred
                   alt="NextUI Album Cover"
                   className="object-cover  "
-                  src={`${process.env.REACT_APP_API_URL}/${imgUrl}`}
+                  src={`https://lwr1vjxm-3003.euw.devtunnels.ms/${imgUrl}`} 
                   width={800}
                 />
             
